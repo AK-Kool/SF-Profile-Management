@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Test</description>
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <description>Catch the Selected Value</description>
+        <fieldName>recordId</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Final Data</description>
+        <fieldName>finalData</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Enable/Disable</description>
+        <fieldName>isVisible</fieldName>
+    </lightningMessageFields>
+    <masterLabel>Label 1</masterLabel>
+</LightningMessageChannel>
