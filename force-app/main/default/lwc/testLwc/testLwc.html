@@ -1,0 +1,23 @@
+<template>
+    
+    <!-- <c-reusable-combobox data-id="abcd" age=13>
+    </c-reusable-combobox>
+    <lightning-button 
+                label="Click Here"
+                onclick={handleClick}
+                slot="actions">
+
+    </lightning-button>  -->
+    <template if:true={isVisible}>
+        <c-reusable-combobox-component 
+                obj-name="UserLicense" 
+                is-record=true
+                placeholder="Select License"
+                max-records=30
+                left-text=''
+                filter-text=''>
+        </c-reusable-combobox-component>
+        <c-users-table></c-users-table>
+    </template>
+    
+</template>

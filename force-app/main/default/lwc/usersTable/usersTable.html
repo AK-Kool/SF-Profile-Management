@@ -1,0 +1,181 @@
+<template>
+    <form>
+        <template if:true={hasCatchedValue}>
+        <!--    Data : {changedData}
+            <br /><br />
+            FINAL DATA : {finalData} -->
+            <lightning-card title="Users Data">
+                <lightning-button 
+                        label="Next" 
+                        onclick={handleNext} 
+                        slot="actions"
+                        disabled={nextButtonStatus}>
+                </lightning-button>
+
+
+                <div class="slds-table_edit_container slds-is-relative">
+                    <table aria-multiselectable="true"
+                        class="slds-table slds-no-cell-focus slds-table_bordered slds-table_edit slds-table_fixed-layout slds-table_resizable-cols"
+                        role="grid" aria-label="Example default inline edit table with cell focused">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th aria-label="Name" aria-sort="none" class="slds-is-sortable" scope="col">
+                                    <a class="slds-th__action" href="#" role="button" tabindex="-1">
+                                        <span class="slds-assistive-text">Sort by: </span>
+                                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                            <span class="slds-truncate" title="Name">User Name</span>
+                                            <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                                <svg class="slds-icon slds-icon-text-default slds-is-sortable__icon "
+                                                    aria-hidden="true">
+                                                    <use
+                                                        xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#arrowdown">
+                                                    </use>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </th>
+                                <th aria-label="Name" aria-sort="none" class="slds-is-sortable" scope="col">
+                                    <a class="slds-th__action" href="#" role="button" tabindex="-1">
+                                        <span class="slds-assistive-text">Sort by: </span>
+                                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                            <span class="slds-truncate" title="Name">Profile Name</span>
+                                            <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                                <svg class="slds-icon slds-icon-text-default slds-is-sortable__icon "
+                                                    aria-hidden="true">
+                                                    <use
+                                                        xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#arrowdown">
+                                                    </use>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </th>
+                                <th aria-label="Name" aria-sort="none" class="slds-is-sortable" scope="col">
+                                    <a class="slds-th__action" href="#" role="button" tabindex="-1">
+                                        <span class="slds-assistive-text">Sort by: </span>
+                                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                            <span class="slds-truncate" title="Name">Duration</span>
+                                            <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                                <svg class="slds-icon slds-icon-text-default slds-is-sortable__icon "
+                                                    aria-hidden="true">
+                                                    <use
+                                                        xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#arrowdown">
+                                                    </use>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </th>
+                                <!--
+                                <th aria-label="Name" aria-sort="none" class="slds-is-sortable" scope="col">
+                                    <a class="slds-th__action" href="#" role="button" tabindex="-1">
+                                        <span class="slds-assistive-text">Sort by: </span>
+                                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                            <span class="slds-truncate" title="Name">Action</span>
+                                            <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                                <svg class="slds-icon slds-icon-text-default slds-is-sortable__icon "
+                                                    aria-hidden="true">
+                                                    <use
+                                                        xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#arrowdown">
+                                                    </use>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template if:true={hasData}>
+                                <template for:each={data} for:item="row">
+                                    <template if:false={row.isRowDisabled}>
+                                        <tr key={row.id} aria-selected="false">
+                                            <th class="slds-cell-edit" scope="row" tabindex="0">
+                                                <span class="slds-grid slds-grid_align-spread">
+                                                    <a class="slds-truncate" href="#" tabindex="-1" title={row.uname}>
+                                                        {row.uname}
+                                                    </a>
+                                                </span>
+                                            </th>
+                                            <th class="slds-cell-edit" scope="row" tabindex="0">
+                                                <span class="slds-grid slds-grid_align-spread">
+                                                    <template if:false={row.isEdit}>
+                                                        <a class="slds-truncate" tabindex="-1"
+                                                            title={row.pname}>
+                                                            {row.pname}
+                                                        </a>
+                                                        <button data-id={row.id}
+                                                            class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small"
+                                                            tabindex="-1" title="Edit Name of Acme - 1,200 Widgets"
+                                                            onclick={handleEditProfile}>
+                                                            <svg class="slds-button__icon slds-button__icon_hint slds-button__icon_edit"
+                                                                aria-hidden="false">
+                                                                <use
+                                                                    xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#edit">
+                                                                </use>
+                                                            </svg>
+                                                            <span class="slds-assistive-text">Edit Name of Acme - 1,200
+                                                                Widgets</span>
+                                                        </button>
+                                                    </template>
+                                                    <template if:true={row.isEdit}>
+                                                        <c-reusable-combobox-component obj-name="Profile" is-record=true
+                                                            placeholder="Select Profile" max-records=30
+                                                            left-text={leftText} filter-text={catchedValue}
+                                                            record-id={row.id} existing-profile={row.pname}
+                                                            onselect={handleOnSelect}>
+                                                        </c-reusable-combobox-component>
+                                                    </template>
+
+                                                </span>
+                                            </th>
+                                            <th class="slds-cell-edit" scope="row" tabindex="0">
+                                                <span class="slds-grid slds-grid_align-spread">
+                                                    <template if:false={row.editDuration}>
+                                                        <a class="slds-truncate" tabindex="-1"
+                                                            title={row.duration}>
+                                                            Add Duration
+                                                        </a>
+                                                        <button data-id={row.id}
+                                                            class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small"
+                                                            tabindex="-1" title={row.duration}
+                                                            onclick={handleEditDuration}>
+                                                            <svg class="slds-button__icon slds-button__icon_hint slds-button__icon_edit"
+                                                                aria-hidden="false">
+                                                                <use
+                                                                    xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#edit">
+                                                                </use>
+                                                            </svg>
+                                                            <span class="slds-assistive-text">Edit Name of Acme - 1,200
+                                                                Widgets</span>
+                                                        </button>
+                                                    </template>
+                                                    <template if:true={row.editDuration}>
+                                                        <lightning-combobox name={row.id} value={row.duration}
+                                                            placeholder="Select Duration" options={options}
+                                                            onchange={handleChange}></lightning-combobox>
+                                                    </template>
+                                                </span>
+                                            </th>
+                                            <!--
+                                            <th class="slds-cell-edit" scope="row" tabindex="0">
+                                                <span class="slds-grid slds-grid_align-spread">
+
+                                                    <lightning-button label="Apply" name={row.id}
+                                                        disabled={row.disabled} variant="brand" onclick={handleSave}>
+                                                    </lightning-button>
+
+                                                </span>
+                                            </th> -->
+                                        </tr>
+                                    </template>
+                                </template>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </lightning-card>
+        </template>
+    </form>
+</template>
